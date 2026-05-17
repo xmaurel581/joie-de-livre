@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: xmaurel581/joie-de-livre
+  branch: main
+
+media_folder: "images"
+
+collections:
+  - name: "articles"
+    label: "Articles"
+    folder: "_articles"
+    create: true
+    fields:
+      - {label: "Titre", name: "title", widget: "string"}
+      - {label: "Catégorie", name: "category", widget: "select", options: ["Coup de Cœur", "Auteur de la Semaine", "Analyse Littéraire", "Interviews", "Poésie", "Prix Littéraires", "Littérature du Monde", "Podcast"]}
+      - {label: "Auteur", name: "author", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Image", name: "image", widget: "image", required: false}
+      - {label: "Résumé", name: "excerpt", widget: "text"}
+      - {label: "Contenu", name: "body", widget: "markdown"}
