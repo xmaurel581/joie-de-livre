@@ -1,5 +1,5 @@
 backend:
-  name: github
+  name: git-geteway
   repo: xmaurel581/joie-de-livre
   branch: main
 
