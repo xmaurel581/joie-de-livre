@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joie De Livre — Ressens les livres avant de les lire</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C8860A;
+    --gold-light: #E8A520;
+    --gold-pale: #FAC75A;
+    --brown: #4A2C0C;
+    --brown-mid: #7A4A1E;
+    --brown-light: #B07A40;
+    --cream: #FDF8F0;
+    --cream-dark: #F5EDD8;
+    --ink: #1C1208;
+    --ink-soft: #3A2A10;
+    --gray-warm: #8A7A60;
+    --white: #FFFFFF;
+    --border: rgba(200, 134, 10, 0.2);
+    --border-strong: rgba(200, 134, 10, 0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border-strong);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(74,44,12,0.08);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+  }
+
+  .logo-wrap img {
+    height: 56px;
+    width: auto;
+  }
+
+  .logo-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+
+  .logo-text span {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    padding: 0.4rem 0.75rem;
+    background: var(--cream);
+  }
+
+  .search-bar input {
+    border: none;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    color: var(--ink);
+    outline: none;
+    width: 160px;
+  }
+
+  .search-bar input::placeholder { color: var(--gray-warm); }
+
+  .search-bar svg { color: var(--gray-warm); }
+
+  .btn-abonne {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    padding: 0.5rem 1.25rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-abonne:hover { background: var(--brown); }
+
+  nav {
+    border-top: 1px solid var(--border);
+    background: var(--cream-dark);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow-x: auto;
+  }
+
+  nav a {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--brown-mid);
+    text-decoration: none;
+    padding: 0.65rem 1.2rem;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  nav a:hover, nav a.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    background: linear-gradient(135deg, var(--brown) 0%, #2A1800 50%, var(--brown-mid) 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 3rem;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(ellipse at 20% 50%, rgba(200,134,10,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(200,134,10,0.1) 0%, transparent 50%);
+  }
+
+  .hero-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-pale);
+    font-weight: 500;
+  }
+
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    height: 1px;
+    width: 30px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  .hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+  }
+
+  .hero h2 em {
+    color: var(--gold-pale);
+    font-style: italic;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.75;
+    max-width: 420px;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hero-meta .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn-primary {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    padding: 0.7rem 1.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); }
+
+  .btn-outline {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    background: transparent;
+    color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.7rem 1.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold-pale);
+  }
+
+  .hero-right {
+    position: relative;
+  }
+
+  .featured-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(200,134,10,0.3);
+    padding: 2rem;
+    position: relative;
+  }
+
+  .featured-card::before {
+    content: '❝';
+    font-size: 4rem;
+    color: var(--gold);
+    opacity: 0.3;
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    line-height: 1;
+    font-family: Georgia, serif;
+  }
+
+  .featured-badge {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0.2rem 0.75rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .featured-quote {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.7;
+    padding-top: 1.5rem;
+  }
+
+  .featured-author {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(200,134,10,0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .author-info .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .author-info .title {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--gold-pale);
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+  }
+
+  .lire-link {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--gold-pale);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s;
+  }
+
+  .lire-link:hover { color: var(--white); }
+
+  /* ---- TICKER ---- */
+  .ticker {
+    background: var(--gold);
+    padding: 0.5rem 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ticker-inner {
+    display: flex;
+    gap: 0;
+    animation: ticker 30s linear infinite;
+    white-space: nowrap;
+  }
+
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brown);
+    font-weight: 600;
+    padding: 0 2rem;
+  }
+
+  .ticker-sep {
+    color: var(--brown-mid);
+    opacity: 0.5;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ---- MAIN CONTENT ---- */
+  .main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem;
+  }
+
+  /* ---- SECTION HEADERS ---- */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .section-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-ornament {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .section-ornament span {
+    display: block;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .section-ornament span:nth-child(1) { width: 24px; }
+  .section-ornament span:nth-child(2) { width: 8px; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brown);
+    letter-spacing: 0.01em;
+  }
+
+  .section-title em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .see-all {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: gap 0.2s;
+  }
+
+  .see-all:hover { gap: 0.7rem; }
+
+  /* ---- COUP DE COEUR ---- */
+  .coup-coeur-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .article-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+
+  .article-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(74,44,12,0.12);
+  }
+
+  .card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    background: linear-gradient(135deg, var(--cream-dark) 0%, var(--border) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+
+  .card-img.tall {
+    aspect-ratio: 4/3;
+  }
+
+  .card-img-placeholder {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #F5EDD8 0%, #E8D5B0 100%);
+    font-size: 3rem;
+  }
+
+  .card-img-placeholder.tall { height: 240px; }
+  .card-img-placeholder.short { height: 150px; }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .card-category {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .article-card:hover .card-title { color: var(--gold); }
+
+  .card-title.large {
+    font-size: 1.4rem;
+  }
+
+  .card-excerpt {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--gray-warm);
+    line-height: 1.65;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--border);
+    background: var(--cream);
+  }
+
+  .card-author {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem;
+    color: var(--brown-light);
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
+  .card-date {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    color: var(--gray-warm);
+    letter-spacing: 0.05em;
+  }
+
+  /* ---- AUTEUR DE LA SEMAINE ---- */
+  .auteur-section {
+    background: linear-gradient(135deg, var(--brown) 0%, #1E0E00 100%);
+    padding: 3.5rem;
+    margin: 0 -3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .auteur-section::after {
+    content: '';
+    position: absolute;
+    right: 5%;
+    top: 10%;
+    width: 400px;
+    height: 400px;
+    border: 1px solid rgba(200,134,10,0.15);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .auteur-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .auteur-portrait {
+    text-align: center;
+  }
+
+  .portrait-frame {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E8A520, #C8860A);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    margin: 0 auto 1.5rem;
+    border: 3px solid rgba(200,134,10,0.5);
+    box-shadow: 0 0 0 8px rgba(200,134,10,0.1);
+  }
+
+  .auteur-week-label {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    border: 1px solid var(--gold);
+    padding: 0.25rem 1rem;
+  }
+
+  .auteur-content .section-title {
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .auteur-content .section-title em {
+    color: var(--gold-pale);
+  }
+
+  .auteur-bio {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+  }
+
+  .auteur-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold-pale);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.25rem;
+  }
+
+  /* ---- ANALYSE LITTERAIRE ---- */
+  .analyse-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .analyse-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .analyse-featured {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .analyse-featured::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--gold), var(--brown-light));
+  }
+
+  .analyse-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--brown-mid);
+    background: var(--cream-dark);
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+  }
+
+  .analyse-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+
+  .analyse-excerpt {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--gray-warm);
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  .analyse-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .side-article {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .side-article:hover {
+    border-color: var(--gold);
+    transform: translateX(4px);
+  }
+
+  /* ---- RUBRIQUES GRID ---- */
+  .rubriques-section {
+    margin-bottom: 4rem;
+  }
+
+  .rubriques-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .rubrique-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rubrique-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+
+  .rubrique-card:hover::after { width: 100%; }
+
+  .rubrique-card:hover {
+    box-shadow: 0 4px 25px rgba(74,44,12,0.1);
+  }
+
+  .rubrique-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .rubrique-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 0.4rem;
+  }
+
+  .rubrique-desc {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    color: var(--gray-warm);
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+  }
+
+  .rubrique-count {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ---- NEWSLETTER ---- */
+  .newsletter-section {
+    background: var(--cream-dark);
+    border: 1px solid var(--border-strong);
+    padding: 3.5rem;
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter-section::before {
+    content: '✦';
+    position: absolute;
+    font-size: 8rem;
+    color: rgba(200,134,10,0.06);
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+  }
+
+  .newsletter-section::after {
+    content: '✦';
+    position: absolute;
+    font-size: 8rem;
+    color: rgba(200,134,10,0.06);
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+  }
+
+  .newsletter-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .newsletter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 0.75rem;
+  }
+
+  .newsletter-subtitle {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--gray-warm);
+    margin-bottom: 2rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    max-width: 460px;
+    margin: 0 auto;
+    border: 1px solid var(--border-strong);
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    background: var(--white);
+    color: var(--ink);
+    outline: none;
+  }
+
+  .newsletter-form input::placeholder { color: var(--gray-warm); }
+
+  .newsletter-form button {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .newsletter-form button:hover { background: var(--brown); }
+
+  /* ---- DERNIERS ARTICLES ---- */
+  .derniers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--ink);
+    padding: 4rem 3rem 2rem;
+    position: relative;
+  }
+
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 2rem;
+  }
+
+  .footer-brand .logo-wrap {
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-brand .logo-text h1 { color: var(--white); }
+
+  .footer-desc {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .social-link {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .social-link:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .footer-col h4 {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-col ul li a {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .footer-col ul li a:hover { color: var(--gold-pale); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .footer-legal {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-legal a {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-legal a:hover { color: var(--gold-pale); }
+
+  /* ---- DIVIDER ---- */
+  .ornamental-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 3rem 0 2rem;
+  }
+
+  .ornamental-divider::before,
+  .ornamental-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-strong);
+  }
+
+  .ornamental-divider span {
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .coup-coeur-grid { grid-template-columns: 1fr; }
+    .auteur-inner { grid-template-columns: 1fr; text-align: center; }
+    .analyse-grid { grid-template-columns: 1fr; }
+    .rubriques-grid { grid-template-columns: repeat(2, 1fr); }
+    .derniers-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .header-top { padding: 0.75rem 1.5rem; }
+    .main-content { padding: 2rem 1.5rem; }
+    .auteur-section { padding: 2.5rem 1.5rem; margin: 0 -1.5rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <a href="#" class="logo-wrap">
+      <svg width="48" height="48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#E8A520"/>
+            <stop offset="100%" stop-color="#8A4F08"/>
+          </linearGradient>
+        </defs>
+        <!-- Book base -->
+        <path d="M30 140 Q30 155 45 155 L100 148 L155 155 Q170 155 170 140 L165 95 Q155 88 100 95 Q45 88 35 95 Z" fill="url(#goldGrad)" opacity="0.9"/>
+        <path d="M35 95 L100 102 L165 95 L160 75 Q150 68 100 75 Q50 68 40 75 Z" fill="url(#goldGrad)"/>
+        <!-- Spine -->
+        <rect x="95" y="95" width="10" height="53" fill="#6A3A08" opacity="0.6"/>
+        <!-- Left pages -->
+        <path d="M40 78 Q60 72 95 78 L95 145 Q60 140 40 145 Z" fill="url(#goldGrad)" opacity="0.7"/>
+        <!-- Right pages -->
+        <path d="M105 78 Q140 72 160 78 L160 145 Q140 140 105 145 Z" fill="url(#goldGrad)" opacity="0.7"/>
+        <!-- Leaves growing -->
+        <ellipse cx="100" cy="72" rx="6" ry="12" fill="url(#goldGrad)" transform="rotate(-20,100,72)"/>
+        <ellipse cx="100" cy="72" rx="6" ry="12" fill="url(#goldGrad)" transform="rotate(20,100,72)"/>
+        <ellipse cx="80" cy="65" rx="5" ry="10" fill="url(#goldGrad)" transform="rotate(-45,80,65)"/>
+        <ellipse cx="120" cy="65" rx="5" ry="10" fill="url(#goldGrad)" transform="rotate(45,120,65)"/>
+        <ellipse cx="70" cy="80" rx="5" ry="9" fill="url(#goldGrad)" transform="rotate(-60,70,80)"/>
+        <ellipse cx="130" cy="80" rx="5" ry="9" fill="url(#goldGrad)" transform="rotate(60,130,80)"/>
+        <!-- Stem -->
+        <path d="M97 100 Q100 85 100 65" stroke="url(#goldGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M100 88 Q88 78 78 68" stroke="url(#goldGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M100 88 Q112 78 122 68" stroke="url(#goldGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="logo-text">
+        <h1>Joie De Livre</h1>
+        <span>Ressens les livres avant de les lire</span>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-bar">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Rechercher un livre, auteur…">
+      </div>
+      <button class="btn-abonne">S'abonner</button>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="active">Accueil</a>
+      <a href="#">Coup de Cœur</a>
+      <a href="#">Auteur de la Semaine</a>
+      <a href="#">Analyse Littéraire</a>
+      <a href="#">Chroniques</a>
+      <a href="#">Poésie</a>
+      <a href="#">Littérature du Monde</a>
+      <a href="#">Prix Littéraires</a>
+      <a href="#">Interviews</a>
+      <a href="#">Podcast</a>
+    </div>
+  </nav>
+</header>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="ticker-item">📚 Nouveau : Prix Goncourt 2025 — Les lauréats dévoilés <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">Auteur de la semaine : Alain Mabanckou <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">Coup de Cœur du jour : "La Carte et le Territoire" de Houellebecq <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">Analyse : Les symbolismes dans "L'Étranger" de Camus <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">Festival du Livre de Paris — Notre sélection exclusive <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">Interview : Fatou Diome parle de son prochain roman <span class="ticker-sep">✦</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item">📚 Nouveau : Prix Goncourt 2025 — Les lauréats dévoilés <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">Auteur de la semaine : Alain Mabanckou <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">Coup de Cœur du jour : "La Carte et le Territoire" de Houellebecq <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">Analyse : Les symbolismes dans "L'Étranger" de Camus <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">Festival du Livre de Paris — Notre sélection exclusive <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">Interview : Fatou Diome parle de son prochain roman <span class="ticker-sep">✦</span></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">À la une — Mai 2026</div>
+      <h2>La littérature comme<br><em>fenêtre sur le monde</em></h2>
+      <p class="hero-desc">
+        Explorez, ressentez, découvrez. Joie De Livre est votre compagnon littéraire qui vous guide à travers les œuvres qui façonnent notre époque et notre imaginaire.
+      </p>
+      <div class="hero-meta">
+        <span>850+ Analyses</span>
+        <span class="dot"></span>
+        <span>200+ Auteurs</span>
+        <span class="dot"></span>
+        <span>12 Rubriques</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#" class="btn-primary">Explorer la revue</a>
+        <a href="#" class="btn-outline">Notre sélection</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="featured-card">
+        <div class="featured-badge">Coup de Cœur du Jour</div>
+        <div class="featured-quote">
+          "Il y a des livres qui vous transforment avant même que vous les ouvriez — par leur titre, leur couverture, l'idée seule de leur existence."
+        </div>
+        <div class="featured-author">
+          <div class="author-info">
+            <div class="name">La Rédaction</div>
+            <div class="title">Joie De Livre · 17 mai 2026</div>
+          </div>
+          <a href="#" class="lire-link">Lire l'article →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="main-content">
+
+  <!-- COUP DE COEUR -->
+  <div class="section-header">
+    <div class="section-title-wrap">
+      <div class="section-ornament"><span></span><span></span></div>
+      <h2 class="section-title">Coup de <em>Cœur</em></h2>
+    </div>
+    <a href="#" class="see-all">Voir tout →</a>
+  </div>
+
+  <div class="coup-coeur-grid">
+    <div class="article-card">
+      <div class="card-img-placeholder tall" style="height:300px; font-size:4rem;">📖</div>
+      <div class="card-body">
+        <span class="card-category">Coup de Cœur</span>
+        <h3 class="card-title large">"Beloved" de Toni Morrison : une descente dans les abîmes de la mémoire et de la culpabilité</h3>
+        <p class="card-excerpt">Un chef-d'œuvre qui explore le trauma de l'esclavage à travers le prisme du fantastique. Morrison tisse une prose envoûtante où le passé ne meurt jamais vraiment — il revient, il hante, il exige d'être nommé.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-author">Par Aminata Traoré</span>
+        <span class="card-date">17 mai 2026</span>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="card-img-placeholder short">🌹</div>
+      <div class="card-body">
+        <span class="card-category">Roman Contemporain</span>
+        <h3 class="card-title">"Le Nom de la Rose" d'Umberto Eco — 40 ans et toujours brillant</h3>
+        <p class="card-excerpt">Un labyrinthe intellectuel savamment construit, où la bibliothèque devient métaphore du monde.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-author">Par Jean-Pierre Moreau</span>
+        <span class="card-date">16 mai 2026</span>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="card-img-placeholder short">🌿</div>
+      <div class="card-body">
+        <span class="card-category">Littérature Africaine</span>
+        <h3 class="card-title">Chinua Achebe, "Things Fall Apart" — L'œuvre qui a tout changé</h3>
+        <p class="card-excerpt">Comment un roman a redéfini la façon dont l'Afrique se raconte à elle-même et au monde entier.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-author">Par Ousmane Diallo</span>
+        <span class="card-date">15 mai 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTEUR DE LA SEMAINE -->
+  <section class="auteur-section">
+    <div class="auteur-inner">
+      <div class="auteur-portrait">
+        <div class="portrait-frame">✍️</div>
+        <div class="auteur-week-label">Auteur de la Semaine</div>
+      </div>
+      <div class="auteur-content">
+        <div class="section-ornament" style="margin-bottom:1rem;"><span style="background:rgba(200,134,10,0.5)"></span><span style="background:rgba(200,134,10,0.5)"></span></div>
+        <h2 class="section-title" style="color:white; font-size:2rem;">Alain <em>Mabanckou</em></h2>
+        <p class="auteur-bio">
+          Romancier, poète et essayiste congolais né à Pointe-Noire, Alain Mabanckou est l'une des voix les plus importantes de la littérature francophone contemporaine. Professeur à UCLA, lauréat du Prix Renaudot 2006 pour "Mémoires de porc-épic", il mêle humour, ironie et profonde humanité dans une prose reconnaissable entre toutes.
+        </p>
+        <div class="auteur-stats">
+          <div class="stat">
+            <div class="stat-num">15+</div>
+            <div class="stat-label">Romans</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">12</div>
+            <div class="stat-label">Prix Littéraires</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">30</div>
+            <div class="stat-label">Langues traduit</div>
+          </div>
+        </div>
+        <a href="#" class="btn-primary">Découvrir son univers →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYSE LITTERAIRE -->
+  <div class="section-header">
+    <div class="section-title-wrap">
+      <div class="section-ornament"><span></span><span></span></div>
+      <h2 class="section-title">Analyse <em>Littéraire</em></h2>
+    </div>
+    <a href="#" class="see-all">Voir tout →</a>
+  </div>
+
+  <div class="analyse-grid">
+    <div class="analyse-main">
+      <div class="analyse-featured">
+        <span class="analyse-tag">🔍 Analyse approfondie</span>
+        <h3 class="analyse-title">"L'Étranger" de Camus : l'absurde comme réponse à l'angoisse existentielle moderne</h3>
+        <p class="analyse-excerpt">
+          La phrase d'ouverture — "Aujourd'hui, maman est morte" — est l'une des plus célèbres et des plus déstabilisantes de la littérature mondiale. En quelques mots, Camus établit le ton d'une œuvre qui refuse délibérément le sentimentalisme et interroge notre rapport à la mort, à la société, et au sens que nous donnons à l'existence. Meursault n'est pas un monstre : il est le miroir dans lequel nous refusons de nous regarder.
+        </p>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <span class="card-author">Par Isabelle Fontaine</span>
+            <span class="card-date">· 12 mai 2026 · 15 min de lecture</span>
+          </div>
+          <a href="#" class="btn-primary" style="font-size:0.65rem;padding:0.5rem 1.25rem;">Lire l'analyse →</a>
+        </div>
+      </div>
+
+      <div class="analyse-featured" style="background:var(--cream-dark);">
+        <span class="analyse-tag">📜 Décryptage</span>
+        <h3 class="analyse-title">Proust et la mémoire involontaire : quand la madeleine transcende le temps</h3>
+        <p class="analyse-excerpt">
+          La "Recherche" proustienne n'est pas seulement un roman fleuve — c'est une théorie complète de la perception et de la conscience. Nous décryptons comment Proust anticipe les neurosciences modernes dans sa compréhension de la mémoire.
+        </p>
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <span class="card-author">Par Marc Delacroix</span>
+          <span class="card-date">· 10 mai 2026 · 20 min de lecture</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="analyse-sidebar">
+      <div style="font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:0.5rem;">À lire aussi</div>
+      
+      <div class="side-article">
+        <span class="card-category" style="font-size:0.55rem;">Poésie</span>
+        <p class="card-title" style="font-size:0.9rem;">Baudelaire et la modernité : les Fleurs du Mal, 170 ans après</p>
+        <p class="card-date" style="font-size:0.65rem;font-family:'Jost',sans-serif;margin-top:0.4rem;">8 mai 2026</p>
+      </div>
+
+      <div class="side-article">
+        <span class="card-category" style="font-size:0.55rem;">Roman</span>
+        <p class="card-title" style="font-size:0.9rem;">Frantz Fanon, "Les Damnés de la Terre" : une lecture politique actuelle</p>
+        <p class="card-date" style="font-size:0.65rem;font-family:'Jost',sans-serif;margin-top:0.4rem;">6 mai 2026</p>
+      </div>
+
+      <div class="side-article">
+        <span class="card-category" style="font-size:0.55rem;">Essai</span>
+        <p class="card-title" style="font-size:0.9rem;">Simone de Beauvoir et la condition féminine dans la fiction</p>
+        <p class="card-date" style="font-size:0.65rem;font-family:'Jost',sans-serif;margin-top:0.4rem;">4 mai 2026</p>
+      </div>
+
+      <div class="side-article">
+        <span class="card-category" style="font-size:0.55rem;">Classique</span>
+        <p class="card-title" style="font-size:0.9rem;">Dostoïevski : le roman policier comme philosophie morale</p>
+        <p class="card-date" style="font-size:0.65rem;font-family:'Jost',sans-serif;margin-top:0.4rem;">2 mai 2026</p>
+      </div>
+
+      <div class="side-article">
+        <span class="card-category" style="font-size:0.55rem;">Contemporain</span>
+        <p class="card-title" style="font-size:0.9rem;">Édouard Louis : l'auto-fiction comme acte politique</p>
+        <p class="card-date" style="font-size:0.65rem;font-family:'Jost',sans-serif;margin-top:0.4rem;">29 avr. 2026</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ornamental-divider"><span>✦ ✦ ✦</span></div>
+
+  <!-- RUBRIQUES -->
+  <div class="section-header rubriques-section" style="margin-bottom:1.5rem;">
+    <div class="section-title-wrap">
+      <div class="section-ornament"><span></span><span></span></div>
+      <h2 class="section-title">Nos <em>Rubriques</em></h2>
+    </div>
+  </div>
+
+  <div class="rubriques-grid" style="margin-bottom:4rem;">
+    <div class="rubrique-card">
+      <span class="rubrique-icon">❤️</span>
+      <div class="rubrique-name">Coup de Cœur</div>
+      <div class="rubrique-desc">Nos coups de cœur du jour, de la semaine et du mois</div>
+      <span class="rubrique-count">142 articles</span>
+    </div>
+    <div class="rubrique-card">
+      <span class="rubrique-icon">✍️</span>
+      <div class="rubrique-name">Auteur de la Semaine</div>
+      <div class="rubrique-desc">Portrait et œuvre complète d'un auteur incontournable</div>
+      <span class="rubrique-count">52 portraits</span>
+    </div>
+    <div class="rubrique-card">
+      <span class="rubrique-icon">🔍</span>
+      <div class="rubrique-name">Analyse Littéraire</div>
+      <div class="rubrique-desc">Décryptage approfondi des œuvres et courants littéraires</div>
+      <span class="rubrique-count">318 analyses</span>
+    </div>
+    <div class="rubrique-card">
+      <span class="rubrique-icon">🎙️</span>
+      <div class="rubrique-name">Interviews</div>
+      <div class="rubrique-desc">Rencontres exclusives avec les voix de la littérature</div>
+      <span class="rubrique-count">87 interviews</span>
+    </div>
+    <div class="rubrique-card">
+      <span class="rubrique-icon">🌍</span>
+      <div class="rubrique-name">Littérature du Monde</div>
+      <div class="rubrique-desc">Voix du monde entier, traduits et commentés pour vous</div>
+      <span class="rubrique-count">205 textes</span>
+    </div>
+    <div class="rubrique-card">
+      <span class="rubrique-icon">🏆</span>
+      <div class="rubrique-name">Prix Littéraires</div>
+      <div class="rubrique-desc">Actualité des prix, présélections et palmarès commentés</div>
+      <span class="rubrique-count">98 articles</span>
+    </div>
+    <div class="rubrique-card">
+      <span class="rubrique-icon">🎭</span>
+      <div class="rubrique-name">Poésie</div>
+      <div class="rubrique-desc">La poésie dans toute sa diversité — classique et moderne</div>
+      <span class="rubrique-count">176 poèmes</span>
+    </div>
+    <div class="rubrique-card">
+      <span class="rubrique-icon">🎧</span>
+      <div class="rubrique-name">Podcast Littéraire</div>
+      <div class="rubrique-desc">Écouter la littérature autrement — nos émissions audio</div>
+      <span class="rubrique-count">64 épisodes</span>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter-section">
+    <div class="newsletter-eyebrow">✦ La lettre de Joie De Livre</div>
+    <h2 class="newsletter-title">Rejoignez notre communauté</h2>
+    <p class="newsletter-subtitle">Chaque semaine, recevez nos meilleures analyses, le portrait de l'auteur de la semaine et nos coups de cœur directement dans votre boîte mail.</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Votre adresse email…">
+      <button>S'inscrire gratuitement</button>
+    </div>
+    <p style="font-family:'Jost',sans-serif;font-size:0.62rem;color:var(--gray-warm);margin-top:1rem;letter-spacing:0.05em;">12 400 lecteurs abonnés · Désinscription en un clic</p>
+  </div>
+
+  <!-- DERNIERS ARTICLES -->
+  <div class="section-header">
+    <div class="section-title-wrap">
+      <div class="section-ornament"><span></span><span></span></div>
+      <h2 class="section-title">Derniers <em>Articles</em></h2>
+    </div>
+    <a href="#" class="see-all">Voir tout →</a>
+  </div>
+
+  <div class="derniers-grid">
+    <div class="article-card">
+      <div class="card-img-placeholder short" style="font-size:2.5rem;">📜</div>
+      <div class="card-body">
+        <span class="card-category">Chronique</span>
+        <h3 class="card-title">La lecture à l'ère du numérique : éloge de la lenteur</h3>
+        <p class="card-excerpt">Quand tout va vite, faut-il ralentir pour mieux lire ? Une réflexion sur notre rapport contemporain aux livres.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-author">Sophie Leroux</span>
+        <span class="card-date">17 mai 2026</span>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="card-img-placeholder short" style="font-size:2.5rem;">🌙</div>
+      <div class="card-body">
+        <span class="card-category">Littérature Africaine</span>
+        <h3 class="card-title">Léonora Miano, "L'intérieur de la nuit" — la violence et la grâce</h3>
+        <p class="card-excerpt">Un premier roman d'une force brute, qui nous plonge dans l'Afrique subsaharienne avec une lucidité sans concession.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-author">Kofi Mensah</span>
+        <span class="card-date">16 mai 2026</span>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <div class="card-img-placeholder short" style="font-size:2.5rem;">⚡</div>
+      <div class="card-body">
+        <span class="card-category">Essai</span>
+        <h3 class="card-title">Relire Nietzsche en 2026 : ce que le philosophe nous dit encore</h3>
+        <p class="card-excerpt">La pensée de Nietzsche reste troublante d'actualité. Retour sur une influence philosophique incontournable pour la littérature.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-author">Paul Vautrin</span>
+        <span class="card-date">15 mai 2026</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- END MAIN -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo-wrap" style="margin-bottom:1.25rem;display:inline-flex;">
+          <div class="logo-text">
+            <h1>Joie De Livre</h1>
+            <span style="color:rgba(200,134,10,0.7);">Ressens les livres avant de les lire</span>
+          </div>
+        </a>
+        <p class="footer-desc">
+          Média littéraire et culturel francophone, Joie De Livre célèbre la littérature dans toute sa richesse. Analyses, portraits d'auteurs, coups de cœur et découvertes du monde entier.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link">𝕏</a>
+          <a href="#" class="social-link">f</a>
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">▶</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rubriques</h4>
+        <ul>
+          <li><a href="#">Coup de Cœur</a></li>
+          <li><a href="#">Auteur de la Semaine</a></li>
+          <li><a href="#">Analyse Littéraire</a></li>
+          <li><a href="#">Poésie</a></li>
+          <li><a href="#">Interviews</a></li>
+          <li><a href="#">Prix Littéraires</a></li>
+          <li><a href="#">Podcast</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Littératures</h4>
+        <ul>
+          <li><a href="#">Afrique Francophone</a></li>
+          <li><a href="#">Littérature Française</a></li>
+          <li><a href="#">Caraïbes & Océan Indien</a></li>
+          <li><a href="#">Maghreb</a></li>
+          <li><a href="#">Littérature Mondiale</a></li>
+          <li><a href="#">Classiques</a></li>
+          <li><a href="#">Contemporain</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>À propos</h4>
+        <ul>
+          <li><a href="#">Notre mission</a></li>
+          <li><a href="#">L'équipe</a></li>
+          <li><a href="#">Collaborer</a></li>
+          <li><a href="#">Nous contacter</a></li>
+          <li><a href="#">Publicité</a></li>
+          <li><a href="#">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Joie De Livre. Tous droits réservés.</p>
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">CGU</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
